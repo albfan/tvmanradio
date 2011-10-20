@@ -1,0 +1,60 @@
+# Gambas Form File 2.0
+
+{ Form Form
+  MoveScaled(0,0,31,70)
+  Mouse = Mouse.Arrow
+  Text = ("TVManRadio - Linux")
+  Icon = Picture["icono.png"]
+  Border = Window.Fixed
+  { Configuracion Menu
+    Text = ("Configuraci\xC3\xB3n")
+    { Salir Menu
+      Text = ("Salir")
+    }
+  }
+  { ListBox1 ListBox
+    MoveScaled(2,13,27,52)
+    Sorted = True
+  }
+  { TrayIcon1 #TrayIcon
+    #X = 280
+    #Y = 378
+    Visible = True
+    Tag = "TVManRadio"
+    Tooltip = "TVManRadio para Linux"
+    Picture = Picture["images/icono.png"]
+  }
+  { estado Label
+    MoveScaled(2,65,27,2)
+    Text = ("Estado: Parado")
+  }
+  { Volume Slider
+    MoveScaled(9,8,20,4)
+    Value = 50
+  }
+  { mute Button
+    MoveScaled(2,7,5,5)
+    Text = ("")
+    Picture = Picture["images/muteoff.png"]
+  }
+  { boton_rec Button
+    MoveScaled(2,1,5,5)
+    Enabled = False
+    Text = ("")
+    Picture = Picture["images/Control-record-48.png"]
+  }
+  { TextBox1 TextBox
+    MoveScaled(9,2,21,3)
+    Enabled = False
+    Text = ("Elige la ruta (2 clics)")
+    ReadOnly = True
+  }
+  { Button1 Button
+    MoveScaled(36,11,17,4)
+    Text = ("Cargar Contenido")
+  }
+  { TextArea1 TextArea
+    MoveScaled(36,15,17,19)
+    Text = ("TextArea1")
+  }
+}

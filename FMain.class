@@ -1,0 +1,227 @@
+' Gambas class file
+' Proyecto TVManRadio
+'Dependencias necesarias: alsa, alsa-tools, mplayer
+PRIVATE mute_on_off AS String
+PRIVATE rec_stop AS String
+PRIVATE volumen AS String
+
+
+PUBLIC SUB Form_Open()
+mute_on_off = "FALSE"
+rec_stop = "FALSE"
+
+EXEC ["amixer", "-c", "0", "sset", "Master", Volume.Value, "%"]
+
+ListBox1.Add("Canal Fiesta Radio")
+ListBox1.Add("Los 40 Principales")
+ListBox1.Add("Radio Tele Taxi")
+ListBox1.Add("Antena Huelva")
+ListBox1.Add("Cadena Digital")
+ListBox1.Add("Cadena Ser")
+ListBox1.Add("Canal Flamenco Radio")
+ListBox1.Add("Canal Sur Radio")
+ListBox1.Add("Espiral FM")
+ListBox1.Add("Evolution FM")
+ListBox1.Add("Extremadura Radio")
+ListBox1.Add("Flaix FM")
+ListBox1.Add("Globo Radio FM")
+ListBox1.Add("I Love FM ")
+ListBox1.Add("La Linea Radio")
+ListBox1.Add("Latino FM")
+ListBox1.Add("Loca FM ")
+ListBox1.Add("Mas Radio FM")
+ListBox1.Add("Neurona Radio")
+ListBox1.Add("Onda Cadiz Radio")
+ListBox1.Add("Play FM")
+ListBox1.Add("PQTP Radio")
+ListBox1.Add("Punto Radio")
+ListBox1.Add("Qfm")
+ListBox1.Add("Radio Andalucia ")
+ListBox1.Add("Radio Arrebato")
+ListBox1.Add("Radio Chanquete")
+ListBox1.Add("Radio Eco")
+ListBox1.Add("Radio Estel ")
+ListBox1.Add("Radio Flaixbac")
+ListBox1.Add("Radio Marca")
+ListBox1.Add("Radio Marratxi")
+ListBox1.Add("Radio Nervión")
+ListBox1.Add("Radio Orihuela")
+ListBox1.Add("Radio Oro Malaga")
+ListBox1.Add("Radio Oro Marbella")
+ListBox1.Add("Radio Planeta")
+ListBox1.Add("Radio San Vicente ")
+ListBox1.Add("Radio Ubrique")
+ListBox1.Add("Radio Vilamajor")
+ListBox1.Add("Rock and Gol ")
+ListBox1.Add("Salvaje FM")
+ListBox1.Add("TNT Radio Rock")
+ListBox1.Add("Unika FM")
+ListBox1.Add("Top Radio")
+ListBox1.Add("Vaughan Radio")
+
+
+END
+
+PUBLIC SUB Form_Close()
+  
+EXEC ["killall", "mplayer"]
+
+
+  
+END
+
+
+
+PUBLIC SUB VBox1_MouseDown()
+
+  
+
+END
+
+PUBLIC SUB ListView1_Click()
+
+  
+
+END
+
+PUBLIC SUB ListBox1_DblClick()
+EXEC ["killall", "mplayer"] WAIT 
+EXEC ["mplayer", "http://www.mancera.org/tv/programa/wtzfcfnmz09/reproductor.php?canal=" & ListBox1.Text] FOR WRITE 'TextArea1.Text
+estado.Text = "Estado: Reproduciendo"
+TextBox1.Enabled = TRUE
+
+END
+
+
+
+PUBLIC SUB ListBox1_Click()
+
+  
+
+END
+
+PUBLIC SUB TextBox1_Clic()
+
+
+END
+
+
+PUBLIC SUB TrayIcon1_DblClick()
+'Form.Maximized = TRUE
+FMain.Window.Minimized = FALSE
+
+  
+
+END
+
+PUBLIC SUB Volume_Change()
+
+
+EXEC ["amixer", "-c", "0", "sset", "Master", Volume.Value, "%"]
+
+END
+
+PUBLIC SUB Button1_Click()
+
+DIM hFile AS File
+DIM path, linea AS String
+path = "/home/usuario/listacanales.txt"
+hFile = OPEN path FOR READ
+
+WHILE NOT Eof(hFile)
+    LINE INPUT #hFile, linea
+    TextArea1.Text &= linea & "\n" 
+WEND
+hFile.Close
+
+END
+
+PUBLIC SUB Slider1_Change()
+
+  
+
+END
+
+PUBLIC SUB mute_Click()
+
+
+
+IF mute_on_off = "FALSE"
+    volumen = Volume.Value
+    Volume.Value = 0
+    mute_on_off = "TRUE"
+    mute.Picture = Picture["./images/muteon.png"]
+    Volume.Enabled = FALSE
+  ELSE
+   IF mute_on_off = "TRUE"
+  
+      Volume.Value = volumen
+      mute_on_off = "FALSE"
+      mute.Picture = Picture["./images/muteoff.png"]
+      Volume.Enabled = TRUE
+    ENDIF 
+  ENDIF 
+
+END
+
+PUBLIC SUB boton_rec_Click()
+IF rec_stop = "FALSE"
+    EXEC ["mplayer", "-dumpstream", "http://www.mancera.org/tv/programa/wtzfcfnmz09/reproductor.php?canal=" & ListBox1.Text, "-dumpfile", TextBox1.text] FOR WRITE 'TextArea1.Text
+    rec_stop = "TRUE"
+    boton_rec.Picture = Picture["./images/Control-stop-48.png"]
+    
+  ELSE
+  
+   IF rec_stop = "TRUE"
+      EXEC ["killall", "mplayer"] WAIT 
+      rec_stop = "FALSE"
+      boton_rec.Picture = Picture["./images/Control-record-48.png"]
+    ENDIF 
+  ENDIF 
+
+
+
+
+END
+
+PUBLIC SUB TextBox1_DblClick()
+
+  IF Dialog.saveFile() THEN RETURN
+
+  TextBox1.text = Dialog.Path & ".mp3"
+  boton_rec.Enabled = TRUE
+
+CATCH
+
+  Message.Error(Error.Text)
+
+
+END
+
+PUBLIC SUB TextBox1_KeyPress()
+
+
+END
+
+PUBLIC SUB Salir_Click()
+
+  ME.Close
+
+END
+
+PUBLIC SUB ListBox2_Click()
+
+  
+
+END
+
+PUBLIC SUB Button2_Click()
+
+
+END
+
+PUBLIC SUB TextArea1_KeyPress()
+
+  
+
+END

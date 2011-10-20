@@ -1,0 +1,23 @@
+# Gambas Project File 2.0
+# Compiled with Gambas 2.19.0
+Title=TVManRadio
+Startup=FMain
+Icon=icono.png
+Version=0.0.3
+Library=gb.gui
+Library=gb.form
+Library=gb.vb
+Description=Escucha la Radio a través de Internet totalmente gratis.\nTambien para Windows, iOS y Android\n\nhttp://www.mancera.org\n\n\nDependencias necesarias: alsa, alsa-tools, mplayer
+Authors=Antonio J. Mancera Blanco
+TabSize=2
+SourcePath=/home/usuario/Ubuntu One/PROGRAMACION/Compilaciones/003
+Maintainer=Antonio J. Mancera Blanco
+Vendor=www.mancera.org
+Address=tvmanradio@gmail.com
+License=General Public Licence
+UseRelease=1
+CreateEachDirectory=1
+Systems=debian,fedora,suse,ubuntu
+Menus=Apps/Sound,Audio Video/Audio/Tuner,Audio Video/Audio/Tuner,Apps/Sound
+Categories=Music,Audio;AudioVideo;Tuner,Audio;AudioVideo;Tuner,Music
+Groups=Sound,Applications/Multimedia,Productivity/Multimedia/Sound/Utilities,Sound
